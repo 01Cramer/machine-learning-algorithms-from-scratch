@@ -18,17 +18,41 @@ def euclidean_distance(X_observation, X_test_observation):
 
 
 class KNN:
-    def __init__(self, k=3, distance="euclidean"):
+    def __init__(self, k=3, problem="reg"):
         self.k = k
-        self.distance = distance
+        self.problem = problem
 
     def fit(self, X, y):
         self.X = X
         self.y = y
 
     def predict(self, X_test):
-        predictions = [self._predict(X_test) for observation in X_test]
+        predictions = [self._predict(observation) for observation in X_test]
         return predictions
 
-    def _predict():  # To complete
-        return 0
+    def find_nearest(self, vector):
+        min = vector[0]
+        min_index = 0
+        for i in range(1, len(vector)):
+            if vector[i] < min:
+                min = vector[i]
+                min_index = i
+        return min_index
+
+    def _predict(self, observation):
+        distances = {}
+        k_nearest = []
+
+        for i in range(len(self.X)):
+            distances[i] = euclidean_distance(self.X[i], observation)
+
+        sorted_distances = sorted(distances.items(), key=lambda x: x[1])
+
+        for i in range(self.k):
+            k_nearest.append(self.y[sorted_distances[i][0]])
+
+        if self.problem == "reg":
+            return np.mean(k_nearest)
+
+        else:
+            return max(set(k_nearest), key=k_nearest.count)
