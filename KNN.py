@@ -28,15 +28,17 @@ class KNN:
 
     def predict(self, X_test):
         predictions = [self._predict(observation) for observation in X_test]
+
         return predictions
 
     def find_nearest(self, vector):
-        min = vector[0]
+        min_val = vector[0]
         min_index = 0
         for i in range(1, len(vector)):
-            if vector[i] < min:
-                min = vector[i]
+            if vector[i] < min_val:
+                min_val = vector[i]
                 min_index = i
+
         return min_index
 
     def _predict(self, observation):
