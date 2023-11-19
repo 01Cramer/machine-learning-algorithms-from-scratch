@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 class NaiveBayes:
@@ -10,14 +11,14 @@ class NaiveBayes:
         self.y = y
 
         hypothesis_probability = {}  # P(h)
-        categories = set()
+        classes = set()
 
         for i in range(len(self.y)):
-            categories.add(y[i])
+            classes.add(y[i])
 
-        self.categories = categories
+        self.classes = classes
 
-        for category in categories:
+        for category in classes:
             hypothesis_probability[category] = self.y.count(category) / len(y)
 
         self.hypothesis_probability = hypothesis_probability
@@ -29,14 +30,22 @@ class NaiveBayes:
 
     def _predict(self, X_test_observation):
         class_probability = {}
-        for category in self.categories:
-            naive_probabilites = []  # P(D|h)
+        for category in self.classes:
+            naive_probabilities = []
+            for i in range(len(X_test_observation)):
+                naive = X_test_observation[i]
+                naive_counter = 0
+                for j in range(len(self.X)):
+                    if naive in self.X[j] and self.y[j] == category:
+                        naive_counter += 1
+                naive_probab = naive_counter / len(self.y)
+                if naive_probab == 0:
+                    naive_probab = self.alpha
+                naive_probabilities.append(naive_probab)
+            class_probability[category] = (
+                math.prod(naive_probabilities) * self.hypothesis_probability[category]
+            )
+        print(self.hypothesis_probability)
+        print(class_probability)
 
-            rows_of_category = []
-            for i in range(len(self.y)):
-                if self.y[i] == category:
-                    rows_of_category.append(self.X[i])
-
-            print(rows_of_category)  # Debuging
-            for list in rows_of_category:
-                print(list.count("żywe"))
+print("hello")
