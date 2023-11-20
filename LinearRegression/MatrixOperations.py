@@ -1,6 +1,4 @@
 import numpy as np
-
-
 class Matrix:
     def __init__(self, array):
         self.matrix = np.array(array, dtype=float)
@@ -127,7 +125,7 @@ class Matrix:
             for k in range(0, triangle_matrix.cols):
                 triangle_matrix.matrix[i][k] /= value
 
-        triangle_matrix.matrix = triangle_matrix.matrix[:, [self.cols, triangle_matrix.cols - 1]]
+        triangle_matrix.matrix = triangle_matrix.matrix[:, self.cols:triangle_matrix.cols]
         triangle_matrix.cols = self.cols
         return triangle_matrix
 

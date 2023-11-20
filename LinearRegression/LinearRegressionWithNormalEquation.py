@@ -15,9 +15,9 @@ class LinearRegressionNormalEquation:
         X = add_dummy_feature(X)
         self.X = Matrix(X)
         self.y = Matrix(y)
-        self._calculate()
+        self._calculate_theta()
 
-    def _calculate(self):
+    def _calculate_theta(self):
         X_tran = Matrix(self.X.matrix)
         X_tran.tran()
         self.theta = X_tran.mul(self.X).inv().mul(X_tran).mul(self.y)
