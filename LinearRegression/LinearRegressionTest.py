@@ -23,19 +23,26 @@ model.fit(X_train, y_train)
 sklearn = LinearRegression()
 sklearn.fit(X_train, y_train)
 
-predictions = model.predict(X_test)
-sklearn_predictions = sklearn.predict(X_test)
+predictions = model.predict(X_train)
+training_mse = model.mse(y_train)
 
-mse = model.mse(y_test)
+predictions = model.predict(X_test)
+test_mse = model.mse(y_test)
+
+sklearn_predictions = sklearn.predict(X_test)
 sklearn_mse = mean_squared_error(y_test, sklearn_predictions)
 
-print("MSE:")
-print(mse)
-print("SKLEARN MSE:")
+print("TRAINING MSE:")
+print(training_mse)
+print("TEST MSE:")
+print(test_mse)
+print("SKLEARN TEST MSE:")
 print(sklearn_mse)
-print("RMSE:" + str(math.sqrt(mse)))
+print("TEST RMSE:" + str(math.sqrt(test_mse)))
 
 X_new = np.array([[1], [11]])   # plot regression line
 plt.plot(X_new, model.predict(X_new).matrix, "r-", label="Pred")
 plt.plot(X_train, y_train, "b.")
+plt.xlabel('Years of experience')
+plt.ylabel('Monthly salary')
 plt.show()
