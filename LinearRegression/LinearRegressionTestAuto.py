@@ -34,23 +34,21 @@ print(mse)
 print("SKLEARN MSE:")
 print(sklearn_mse)
 
-# plt.plot(X_test, predictions.matrix, "r-", label="Pred")
-# plt.plot(X_train, y_train, "b.")
-# plt.show()
+print(model.theta)
 
-
-RE, IM = np.meshgrid(X_test[:,[0]], X_test[:,[1]]) #2D planes
-
+X = np.array([[9], [45]])
+Y = np.array([[1500], [5000]])
+XY = np.append(X, Y, axis = 1)
+RE, IM = np.meshgrid(X_test[:, [0]], X_test[:, [1]]) #2D planes
+RE, IM = np.meshgrid(X, Y)
+predictXY = model.predict(XY)
 fig = plt.figure(figsize=(16, 12))
 ax = plt.subplot(projection='3d')
-# ax  = fig.gca   (projection='3d')
-srf = ax.plot_surface(RE, IM, predictions.matrix, cmap='Spectral', cstride=1, rstride=1)
-ax.plot_surface(RE, IM, y_test, cstride=1, rstride=1)
-# srf = ax.plot_surface(RE, IM, predictions.matrix)
+ax.scatter(X_test[:, [0]], X_test[:, [1]], y_test, edgecolors = 'r')
+srf = ax.plot_surface(np.array([[9.6,29],[5,15]]), np.array([[5000,3704],[4222,1500]]), np.array([[200,56]]), cstride=1, rstride=1)
 ax.set_xlabel("mpg")
 ax.set_ylabel("weight")
 ax.set_zlabel("horsepower")
-ax.set_title('Transmitancja 3D')
-ax.view_init(15, -50)
-fig.colorbar(srf) # add a color bar which maps values to colors
-fig.show()
+ax.set_title('3D PLOT')
+ax.view_init(30, 50)
+plt.show()

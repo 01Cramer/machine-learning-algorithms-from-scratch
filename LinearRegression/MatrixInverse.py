@@ -1,4 +1,6 @@
 import numpy as np
+
+
 def _find_row_with_most_zeros(matrix):
     max_zeros = 0
     row = 0
