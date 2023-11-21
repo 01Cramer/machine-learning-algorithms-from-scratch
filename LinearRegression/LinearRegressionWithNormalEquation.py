@@ -23,7 +23,7 @@ class LinearRegressionNormalEquation:
         self.theta = X_tran.mul(self.X).inv().mul(X_tran).mul(self.y)
 
     def predict(self, X_input):
-        X_input = add_dummy_feature(X_input)
+        X_input = add_dummy_feature(X_input)    # need to include intercept (beta 0) in X matrix
         X_input = Matrix(X_input)
 
         y_predict = X_input.mul(self.theta)
