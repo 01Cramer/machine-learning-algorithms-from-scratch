@@ -4,7 +4,7 @@ import numpy as np
 def euclidean_distance(X_observation, X_test_observation):
     euclidean_distance = 0
     if len(X_observation) != len(X_test_observation):
-        print("Can't calculate distance between vectors of diffrent size")
+        print("Can't calculate distance between vectors of different size")
         return None
     else:
         for i in range(len(X_observation)):
