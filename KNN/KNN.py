@@ -22,6 +22,8 @@ def euclidean_distance(X_observation, X_test_observation):
 class KNN:
     def __init__(self, k=3, problem="reg"):
         self.k = k
+        self.X = None
+        self.y = None
         self.problem = problem
 
     def fit(self, X, y):
@@ -41,7 +43,9 @@ class KNN:
             distances[i] = euclidean_distance(self.X[i], observation)
 
         sorted_distances = sorted(distances.items(), key=lambda x: x[1])
-
+        # Example of sorted_distances [(1, 0.5), (2, 0.5), (0, 1.5), (3, 1.5)]
+        # index 0 of tuple -> corresponding index of observation in X matrix
+        # index 1 of tuple -> calculated distance
         for i in range(self.k):
             k_nearest.append(self.y[sorted_distances[i][0]])
 
